@@ -23,6 +23,7 @@ typedef struct Cliente
 
 void cargarCliente(Cliente *cliente, int id);
 void cargarProducto(Producto *producto, int cantProduct);
+int costoTotal(Producto *producto);
 
 int main(){
     
@@ -41,19 +42,13 @@ int main(){
         cargarCliente(clientes, i);
     }
     
-    
-     
-
-
-
-
     return 0;
 }
 
 void cargarCliente(Cliente *cliente, int id){
     (cliente + id)->ClienteID = id + 1;
-
-    printf("Ingrese el nombre del %d cliente\n", id + 1);
+    printf("--------------CARGANDO DATOS DEL CLIENTE[%d] -----------------\n");
+    printf("Ingrese el nombre del cliente\n", id + 1);
     (cliente + id)->NombreCliente = (char *)malloc(sizeof(char)*100);
     fflush(stdin);
     gets((cliente + id)->NombreCliente);
@@ -63,6 +58,7 @@ void cargarCliente(Cliente *cliente, int id){
     (cliente + id)->Productos = (Producto *)malloc(sizeof(Producto) * (cliente + id)->CantidadProductosAPedir);
 
     cargarProducto((cliente + id)->Productos, (cliente + id)->CantidadProductosAPedir);
+    printf("\n");
 
 }
 
@@ -75,4 +71,10 @@ void cargarProducto(Producto *producto, int cantProduct){
         (producto + i)->PrecioUnitario = rand() % 91 + 10;
     }
     
+}
+
+int costoTotal(Producto *producto){
+
+    return (producto->Cantidad * producto->PrecioUnitario);
+
 }
