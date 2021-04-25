@@ -23,7 +23,7 @@ typedef struct Cliente
 
 void cargarCliente(Cliente *cliente, int id);
 void cargarProducto(Producto *producto, int cantProduct);
-int costoTotal(Producto *producto);
+float costoTotal(Producto *producto);
 void mostrarClientes(Cliente *cliente, int indice);
 void mostrarProductos(Producto *producto, int cantProduct);
 
@@ -84,21 +84,18 @@ void cargarProducto(Producto *producto, int cantProduct){
     
 }
 
-int costoTotal(Producto *producto){
+float costoTotal(Producto *producto){
 
     return (producto->Cantidad * producto->PrecioUnitario);
 
 }
 
 void mostrarClientes(Cliente *cliente, int indice){
-    printf("-----MOSTRANDO [%d] CLIENTE--------------\n", indice + 1);
+    printf("\n-----MOSTRANDO [%d] CLIENTE--------------\n", indice + 1);
     printf("ID Cliente = %d \n", indice + 1);
     printf("Nombre del cliente = %s\n", (cliente + indice)->NombreCliente);
     printf("Cantidad de productos que lleva = %d\n", (cliente + indice)->CantidadProductosAPedir);
     mostrarProductos((cliente + indice)->Productos, (cliente + indice)->CantidadProductosAPedir);
-    int costoNeto;
-    costoNeto = costoTotal((cliente + indice)->Productos);
-    printf("COSTO TOTAL %d", costoNeto);
 }
 
 void mostrarProductos(Producto *producto, int cantProduct){
@@ -107,13 +104,10 @@ void mostrarProductos(Producto *producto, int cantProduct){
     {
         printf("\nMOSTRANDO PRODUCTO [%d]\n", i + 1);
         printf("ID del producto = %d \n", (producto + i)->ProductoID);
-        printf("Cantidad de productos = %d \n",(producto + i)->Cantidad);
         printf("Tipo de producto = %s \n",(producto + i)->TipoProducto);
+        printf("Cantidad de productos = %d \n",(producto + i)->Cantidad);
         printf("Precio unitario del producto = %f \n",(producto + i)->PrecioUnitario);
+        printf("Precio total de productos = %f \n", costoTotal(producto + i));
     }
-    
-
-
-
 
 }
