@@ -25,7 +25,7 @@ void cargarCliente(Cliente *cliente, int id);
 void cargarProducto(Producto *producto, int cantProduct);
 float costoTotal(Producto *producto);
 void mostrarClientes(Cliente *cliente, int indice);
-void mostrarProductos(Producto *producto, int cantProduct);
+float mostrarProductos(Producto *producto, int cantProduct);
 
 int main(){
     
@@ -91,14 +91,17 @@ float costoTotal(Producto *producto){
 }
 
 void mostrarClientes(Cliente *cliente, int indice){
+    float total;
     printf("\n-----MOSTRANDO [%d] CLIENTE--------------\n", indice + 1);
     printf("ID Cliente = %d \n", indice + 1);
     printf("Nombre del cliente = %s\n", (cliente + indice)->NombreCliente);
     printf("Cantidad de productos que lleva = %d\n", (cliente + indice)->CantidadProductosAPedir);
-    mostrarProductos((cliente + indice)->Productos, (cliente + indice)->CantidadProductosAPedir);
+    total = mostrarProductos((cliente + indice)->Productos, (cliente + indice)->CantidadProductosAPedir);
+    printf("\nEl total NETO A PAGAR ES = %f\n", total);
 }
 
-void mostrarProductos(Producto *producto, int cantProduct){
+float mostrarProductos(Producto *producto, int cantProduct){
+    float total = 0;
     printf("\n-----MOSTRANDO PRODUCTOS--------\n");
     for (int i = 0; i < cantProduct; i++)
     {
@@ -108,6 +111,7 @@ void mostrarProductos(Producto *producto, int cantProduct){
         printf("Cantidad de productos = %d \n",(producto + i)->Cantidad);
         printf("Precio unitario del producto = %f \n",(producto + i)->PrecioUnitario);
         printf("Precio total de productos = %f \n", costoTotal(producto + i));
+        total += costoTotal(producto + i);
     }
-
+    return total;
 }
